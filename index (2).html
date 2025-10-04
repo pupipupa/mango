@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥭 BATAILLE DE MANGUE 🥭</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Conteneur principal -->
+    <div class="game-container">
+        <!-- En-tête -->
+        <header class="game-header">
+            <h1 class="game-title">🥭 BATAILLE DE MANGUE 🥭</h1>
+            <div class="subtitle">Jeu RPG Rétro</div>
+        </header>
+
+        <!-- Écran de sélection de personnage -->
+        <div id="character-select" class="screen active">
+            <div class="select-title">
+                <h2>✨ CHOISIS TA MANGUE ✨</h2>
+                <p>Qui sera ton champion dans cette bataille épique?</p>
+            </div>
+            
+            <div class="character-options">
+                <div class="character-card" data-character="musclee">
+                    <div class="character-sprite">
+                        <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/bcc2fdae-cf9c-499a-9967-9a0a5b117e0b.png" alt="Mangue Musclée" class="mango-image musclee-image">
+                    </div>
+                    <h3>💪 MANGUE MUSCLÉE</h3>
+                    <p class="character-desc">Grosse, stupide, pathétique</p>
+                    <div class="stats-preview">
+                        <div class="stat">❤️ Santé: 70</div>
+                        <div class="stat">⚡ Énergie: 50</div>
+                        <div class="stat">💪 Force: 85</div>
+                        <div class="stat">✨ Charisme: 15</div>
+                    </div>
+                    <button class="btn btn--primary select-btn">CHOISIR!</button>
+                </div>
+
+                <div class="character-card featured" data-character="ronde">
+                    <div class="character-sprite">
+                        <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/94e02c1b-5adc-432f-8007-4ea43a6987eb.png" alt="Mangue Ronde" class="mango-image ronde-image sparkle">
+                    </div>
+                    <h3>🌟 MANGUE RONDE</h3>
+                    <p class="character-desc">Mignonne, cool, championne!</p>
+                    <div class="stats-preview">
+                        <div class="stat">❤️ Santé: 95</div>
+                        <div class="stat">⚡ Énergie: 90</div>
+                        <div class="stat">💪 Force: 60</div>
+                        <div class="stat">✨ Charisme: 100</div>
+                    </div>
+                    <button class="btn btn--primary select-btn">CHOISIR!</button>
+                    <div class="best-choice">⭐ MEILLEUR CHOIX! ⭐</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Écran de jeu principal -->
+        <div id="main-game" class="screen">
+            <!-- Arène avec personnages -->
+            <div class="arena">
+                <div class="mango-container left">
+                    <img id="player-mango-img" src="" alt="Mangue Joueur" class="mango-image-large">
+                    <div class="mango-name" id="player-name"></div>
+                    <div class="mango-mood" id="player-mood">😊</div>
+                </div>
+
+                <div class="vs-indicator" id="vs-battle-trigger">
+                    <div class="vs-text">⚔️ VS ⚔️</div>
+                    <div class="battle-hint">CLIC POUR COMBAT!</div>
+                </div>
+
+                <div class="mango-container right">
+                    <img id="opponent-mango-img" src="" alt="Mangue Adversaire" class="mango-image-large">
+                    <div class="mango-name" id="opponent-name"></div>
+                    <div class="mango-mood" id="opponent-mood">😠</div>
+                </div>
+            </div>
+
+            <!-- Panneau d'actions -->
+            <div class="action-panel">
+                <button class="action-btn" id="feed-btn">
+                    <span class="action-icon">🍽️</span>
+                    <span class="action-text">NOURRIR</span>
+                </button>
+                <button class="action-btn" id="train-btn">
+                    <span class="action-icon">🏋️</span>
+                    <span class="action-text">ENTRAÎNER</span>
+                </button>
+                <button class="action-btn battle-action-btn" id="battle-btn">
+                    <span class="action-icon">⚔️</span>
+                    <span class="action-text">COMBAT</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Panneau de statut -->
+        <div class="status-panel">
+            <h3>📊 STATS MANGUE</h3>
+            <div class="stat-bar">
+                <label>❤️ Santé:</label>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="health-bar"></div>
+                    <span class="progress-text" id="health-text">100/100</span>
+                </div>
+            </div>
+            <div class="stat-bar">
+                <label>⚡ Énergie:</label>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="energy-bar"></div>
+                    <span class="progress-text" id="energy-text">100/100</span>
+                </div>
+            </div>
+            <div class="stat-bar">
+                <label>💪 Force:</label>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="strength-bar"></div>
+                    <span class="progress-text" id="strength-text">100/100</span>
+                </div>
+            </div>
+            <div class="stat-bar">
+                <label>✨ Charisme:</label>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="charisma-bar"></div>
+                    <span class="progress-text" id="charisma-text">100/100</span>
+                </div>
+            </div>
+            
+            <div class="score-display">
+                <div class="score">🏆 Score: <span id="score">0</span></div>
+            </div>
+        </div>
+
+        <!-- Modal de nourriture -->
+        <div id="feed-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3>🍽️ CHOISIS LA NOURRITURE</h3>
+                <div class="food-grid">
+                    <div class="food-item" data-food="rice">
+                        <div class="food-icon">🍚</div>
+                        <div class="food-name">Riz</div>
+                        <div class="food-effect">❤️ +10, ⚡ +5</div>
+                    </div>
+                    <div class="food-item" data-food="cake">
+                        <div class="food-icon">🍰</div>
+                        <div class="food-name">Gâteau</div>
+                        <div class="food-effect">❤️ +15, ✨ +10</div>
+                    </div>
+                    <div class="food-item" data-food="protein">
+                        <div class="food-icon">🥩</div>
+                        <div class="food-name">Protéine</div>
+                        <div class="food-effect">💪 +15, ⚡ -5</div>
+                    </div>
+                    <div class="food-item" data-food="fruits">
+                        <div class="food-icon">🍓</div>
+                        <div class="food-name">Fruits</div>
+                        <div class="food-effect">❤️ +20, ✨ +5</div>
+                    </div>
+                </div>
+                <button class="btn btn--secondary close-modal">Annuler</button>
+            </div>
+        </div>
+
+        <!-- Écran de combat -->
+        <div id="battle-screen" class="screen">
+            <h2>⚔️ ARÈNE DE COMBAT ⚔️</h2>
+            <div class="battle-arena">
+                <div class="battle-actions">
+                    <button class="battle-btn" data-action="attack">⚔️ ATTAQUE</button>
+                    <button class="battle-btn" data-action="defend">🛡️ DÉFENSE</button>
+                    <button class="battle-btn" data-action="charm">✨ CHARME</button>
+                </div>
+                <div class="battle-log" id="battle-log"></div>
+                <button class="btn btn--secondary" id="back-to-game">Retour au jeu</button>
+            </div>
+        </div>
+
+        <!-- Log des messages -->
+        <div class="message-log" id="message-log"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
